@@ -1,0 +1,293 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    font-family: 'Dosis'; 
+}
+
+/* Create a canvas for all elements */
+.canvas {
+    position: relative;
+}
+
+/* Add styles for the grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 2cm);
+    grid-template-rows: repeat(12, 2cm);
+    position: relative;
+    margin-top: 300px; /* Adjust the value as needed */
+
+    
+}
+@media screen and (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: repeat(5, 4cm); /* Change the number of columns and their size */
+        grid-template-rows: repeat(8, 4cm); /* Change the number of rows and their size */
+        /* Other styles for smaller screens... */
+    }
+}
+
+.grid-item {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 3px solid #000;
+    font-size: 32px; /* Adjust the font size as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center-align the text */
+    cursor: pointer;
+}
+
+.special-1{
+    background-image: url('eka-kysymys.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center center;
+    border-bottom: white;
+    border-top: white;
+    pointer-events: none;
+
+  
+}
+
+.special-2{
+
+    background-image: url('toka-kysymys.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center center;
+    border-top: none;
+    pointer-events: none;
+}
+
+.special-3{
+
+    background-image: url('kolmas-kysymys.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center center;
+    border-right: none;
+    pointer-events: none;
+   
+}
+
+.special-4{
+
+    background-image: url('neljäs-kysymys.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center center;
+    border-left: none;
+    border-right: none;
+    pointer-events: none;
+}
+
+.special-5{
+
+    background-image: url('viides-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    border-right: none;
+    border-left: none;
+    pointer-events: none;
+   
+}
+
+.special-6{
+
+    background-image: url('kuudes-kysymys.png');
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center center;
+   
+   border-bottom: none;
+    border-left: none;
+    border-top: none;
+    pointer-events: none;
+   
+}
+
+.special-7{
+
+    background-image: url('7-kysymys.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center center;
+   
+   
+    border-bottom: none;
+    pointer-events: none;
+   
+}
+
+.special-8{
+    background-image: url('8-9-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+    border-top: none;
+    border-bottom: none;
+    pointer-events: none;
+    
+}
+
+.special-9{
+    border-top:none;
+    pointer-events: none;
+}
+
+.special-10{
+
+    background-image: url('10-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    border-right: none;
+    
+    pointer-events: none;
+   
+}
+
+.special-11{
+
+    background-image: url('11-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    border-right: none;
+    border-left: none;
+    pointer-events: none;
+   
+}
+
+.special-12{
+
+    background-image: url('12-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    
+    border-left: none;
+    pointer-events: none;
+   
+}
+
+.special-13{
+
+    background-image: url('13-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80%;
+    padding-right: 3px;
+    border-left: none;
+    pointer-events: none;
+   
+}
+
+.special-14{
+
+    background-image: url('14-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80%;
+    
+   
+    pointer-events: none;
+   
+}
+
+.special-15{
+
+    background-image: url('15-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80%;
+    
+    
+    pointer-events: none;
+   
+}
+
+.special-16{
+
+    background-image: url('16-kysymys.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80%;
+    
+    border-left: none;
+    pointer-events: none;
+   
+}
+
+
+/* Styles for the left image */
+.png-image {
+    width: 150px;
+    height: 770px;
+    max-height: 100%;
+    position: absolute;
+    top: 440px;
+    right: 760px;
+    transform-origin: bottom;
+    transform: scaleY(1.33);
+    margin-top: 11px;
+}
+
+/* Styles for the top image container */
+.top-image-container {
+    position: absolute;
+    top: 0;
+   margin-top: 200px;
+    
+}
+
+/* Styles for the top image */
+.top-png-image {
+    width: 833px;
+    height: 100px;
+    transform: translateX(-50px);
+    
+}
+
+/* Styles for the banner container */
+.banner-container {
+    position: absolute;
+    margin-top: 12px;
+    left: 40px;
+    width: 510px;
+    height: 100px;
+     /* Increase the z-index for the banner */
+    margin-left: -184px;
+}
+
+/* Styles for the banner image */
+.banner-image {
+    width: 912px;
+    height: 200px;
+    
+}
+
+.blue {
+    background-color: lightblue;
+}
+
+p{
+
+    margin-left: 300px;
+    font-size: 22px;
+}
+
+
+
+.right{
+    border-right: 8px solid #000;
+}
+    

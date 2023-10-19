@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Ristikko</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="canvas">
+    <div class="left-column">
+        <!-- Tähän lisätään PNG-tiedosto -->
+        <img src="vasen-laita.png" alt="Kuvaus" class="png-image">
+    </div>
+    <div class="top-image-container">
+            <img src="ylä-laita-kysymykset.png" alt="Top Image" class="top-png-image">
+        </div>
+     <!--    <div class="banner-container">
+            <img src="banneri.png" alt="Banner image" class="banner-image">
+
+        </div>-->
+    <div class="grid-container">
+        
+        <!-- Tässä voit lisätä tarvittavat ruudut -->
+        <div class="grid-item" id="cell-1"></div>
+        <div class="grid-item" id="cell-2"></div>
+        <div class="grid-item" id="cell-3"></div>
+        <div class="grid-item" id="cell-4"></div>
+        <div class="grid-item" id="cell-5"></div>
+        <div class="grid-item special-1" data-special="true"></div>
+        <div class="grid-item" id="cell-7"></div>
+        <div class="grid-item" id="cell-8"></div>
+        <div class="grid-item" id="cell-9"></div>
+        <div class="grid-item right" id="cell-10"></div>
+        <div class="grid-item" id="cell-11">1</div>
+        <div class="grid-item" id="cell-12"></div>
+        <div class="grid-item" id="cell-13"></div>
+        <div class="grid-item" id="cell-14"></div>
+        <div class="grid-item" id="cell-15"></div>
+        <div class="grid-item special-2" data-special="true"></div>
+        <div class="grid-item" id="cell-16"></div>
+        <div class="grid-item" id="cell-17"></div>
+        <div class="grid-item" id="cell-18"></div>
+        <div class="grid-item" id="cell-19"></div>
+        <div class="grid-item right" id="cell-20"></div>
+        <div class="grid-item" id="cell-21"></div>
+        <div class="grid-item" id="cell-22"></div>
+        <div class="grid-item" id="cell-23"></div>
+        <div class="grid-item" id="cell-107" ></div>
+        <div class="grid-item" id="cell-24"></div>
+        <div class="grid-item" id="cell-25"></div>
+        <div class="grid-item" id="cell-26"></div>
+        <div class="grid-item" id="cell-27"></div>
+        <div class="grid-item" id="cell-28"></div>
+        <div class="grid-item" id="cell-29"></div>
+        <div class="grid-item right" id="cell-30"></div>
+        <div class="grid-item" id="cell-31"></div>
+        <div class="grid-item" id="cell-32"></div>
+        <div class="grid-item" id="cell-33"></div>
+        <div class="grid-item" id="cell-34"></div>
+        <div class="grid-item" id="cell-35"></div>
+        <div class="grid-item" id="cell-36"></div>
+        <div class="grid-item" id="cell-37"></div>
+        <div class="grid-item" id="cell-38"></div>
+        <div class="grid-item" id="cell-39"></div>
+        <div class="grid-item right" id="cell-40"></div>
+        <div class="grid-item" id="cell-41"></div>
+        <div class="grid-item" id="cell-42"></div>
+        <div class="grid-item special-7" data-special="true"></div>
+        <div class="grid-item special-16" data-special="true"></div>
+        <div class="grid-item" id="cell-44"></div>
+        <div class="grid-item" id="cell-45"></div>
+        <div class="grid-item" id="cell-46"></div>
+        <div class="grid-item" id="cell-47"></div>
+        <div class="grid-item" id="cell-48"></div>
+        <div class="grid-item special-3" data-special="true"></div>
+        <div class="grid-item special-4" data-special="true"></div>
+        <div class="grid-item special-5" data-special="true"></div>
+        <div class="grid-item special-6" data-special="true"></div>
+        <div class="grid-item" id="cell-49"></div>
+        <div class="grid-item" id="cell-50"></div>
+        <div class="grid-item" id="cell-51"></div>
+        <div class="grid-item" id="cell-52"></div>
+        <div class="grid-item" id="cell-53"></div>
+        <div class="grid-item" id="cell-54"></div>
+        <div class="grid-item" id="cell-55"></div>
+        <div class="grid-item" id="cell-56"></div>
+        <div class="grid-item" id="cell-57"></div>
+        <div class="grid-item special-8" data-special="true"></div>
+        <div class="grid-item" id="cell-58"></div>
+        <div class="grid-item" id="cell-59"></div>
+        <div class="grid-item right" id="cell-60"></div>
+        <div class="grid-item" id="cell-61"></div>
+        <div class="grid-item" id="cell-62"></div>
+        <div class="grid-item" id="cell-63"></div>
+        <div class="grid-item" id="cell-64"></div>
+        <div class="grid-item" id="cell-65"></div>
+        <div class="grid-item" id="cell-66"></div>
+        <div class="grid-item special-9" data-special="true"></div>
+        <div class="grid-item" id="cell-67"></div>
+        <div class="grid-item special-10" data-special="true"></div>
+        <div class="grid-item special-11" data-special="true"></div>
+        <div class="grid-item special-12" data-special="true"></div>
+        <div class="grid-item special-13" data-special="true"></div>
+        <div class="grid-item" id="cell-67" ></div>
+        <div class="grid-item" id="cell-68" ></div>
+        <div class="grid-item" id="cell-69" ></div>
+        <div class="grid-item right" id="cell-70" ></div>
+        <div class="grid-item" id="cell-71" ></div>
+        <div class="grid-item" id="cell-72" ></div>
+        <div class="grid-item" id="cell-73" ></div>
+        <div class="grid-item" id="cell-74" ></div>
+        <div class="grid-item" id="cell-75" ></div>
+        <div class="grid-item" id="cell-76" ></div>
+        <div class="grid-item" id="cell-77" ></div>
+        <div class="grid-item" id="cell-78" ></div>
+        <div class="grid-item" id="cell-79" ></div>
+        <div class="grid-item right" id="cell-80" ></div>
+        <div class="grid-item special-14" data-special="true"></div>
+        <div class="grid-item" id="cell-82" ></div>
+        <div class="grid-item" id="cell-83" ></div>
+        <div class="grid-item" id="cell-84" ></div>
+        <div class="grid-item" id="cell-85" ></div>
+        <div class="grid-item" id="cell-86" ></div>
+        <div class="grid-item" id="cell-87" ></div>
+        <div class="grid-item" id="cell-88" ></div>
+        <div class="grid-item" id="cell-89" ></div>
+        <div class="grid-item right" id="cell-90" ></div>
+        <div class="grid-item" id="cell-91" ></div>
+        <div class="grid-item" id="cell-92" ></div>
+        <div class="grid-item" id="cell-93" ></div>
+        <div class="grid-item" id="cell-94" ></div>
+        <div class="grid-item" id="cell-95" ></div>
+        <div class="grid-item" id="cell-96" ></div>
+        <div class="grid-item" id="cell-97" ></div>
+        <div class="grid-item" id="cell-98" ></div>
+        <div class="grid-item" id="cell-99" ></div>
+        <div class="grid-item right" id="cell-100" ></div>
+        <div class="grid-item special-15" data-special="true"></div>
+        <div class="grid-item" id="cell-102" ></div>
+        <div class="grid-item" id="cell-103" ></div>
+        <div class="grid-item" id="cell-104" ></div>
+        <div class="grid-item" id="cell-105" ></div>
+        <div class="grid-item" id="cell-106" ></div>
+        
+        
+    
+        
+        <!-- Jatka näin 12 korkeussuunnassa ja 10 leveyssuunnassa -->
+    </div>
+    <p>Laadinta ja toteutus Arto Kuivanen. Vaikeusaste 2-/3.</p>
+</div>
+
+
+<script>
+   
+
+    // Load the game state from localStorage when the page loads
+    const crosswordState = [
+  ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string'],
+  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', null, null, 'string', 'string','string','string',],
+  ['string', null, null, null, null, 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', null, 'string', null, null,null,null,],
+  ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
+];
+// Select all grid items
+const gridItems = document.querySelectorAll('.grid-item');
+
+// Track the currently selected grid item
+let selectedGridItem = null;
+
+// Function to update the grid item's content
+function updateGridItemContent(gridItem, content) {
+    if (!gridItem.classList.contains('special')) {
+        gridItem.textContent = content;
+    }
+}
+
+// Add click event listeners to each grid item
+gridItems.forEach(function(gridItem) {
+    gridItem.addEventListener('click', function() {
+        // Remove the blue class from the previously selected grid item
+        if (selectedGridItem) {
+            selectedGridItem.classList.remove('blue');
+        }
+
+        // Set the currently selected grid item
+        selectedGridItem = gridItem;
+
+        // Add the blue class to the clicked grid item
+        selectedGridItem.classList.add('blue');
+    });
+});
+
+// Listen for keyboard input
+document.addEventListener('keydown', function(event) {
+    if (selectedGridItem) {
+        if (/^[A-Öa-ö]$/.test(event.key)) {
+            updateGridItemContent(selectedGridItem, event.key.toUpperCase());
+            saveCrosswordState();
+        } else if (event.key === 'Delete' || event.key === 'Backspace') {
+            updateGridItemContent(selectedGridItem, '');
+            saveCrosswordState();
+        }
+    }
+});
+
+// Load the game state from localStorage when the page loads
+function loadCrosswordState() {
+    const savedCrosswordStateJSON = localStorage.getItem('crosswordState');
+    if (savedCrosswordStateJSON) {
+        const savedCrosswordState = JSON.parse(savedCrosswordStateJSON);
+
+        // Loop through the grid items and update their content
+        for (let row = 0; row < crosswordState.length; row++) {
+            for (let col = 0; col < crosswordState[0].length; col++) {
+                const gridItem = gridItems[row * crosswordState[0].length + col];
+                const content = savedCrosswordState[row][col];
+                updateGridItemContent(gridItem, content);
+            }
+        }
+    }
+}
+
+// Function to save the current crossword state to localStorage
+function saveCrosswordState() {
+    const savedCrosswordState = [];
+
+    for (let row = 0; row < 12; row++) {
+        const rowData = [];
+        for (let col = 0; col < 10; col++) {
+            const gridItem = gridItems[row * 10 + col];
+            rowData.push(gridItem.textContent);
+        }
+        savedCrosswordState.push(rowData);
+    }
+
+    const crosswordStateJSON = JSON.stringify(savedCrosswordState);
+    localStorage.setItem('crosswordState', crosswordStateJSON);
+}
+
+// Call the loadCrosswordState function to load the crossword state on page load
+loadCrosswordState();
+
+
+</script>
+
+</body>
+</html>
