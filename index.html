@@ -18,10 +18,10 @@
     <div class="top-image-container">
             <img src="ylä-laita-kysymykset.png" alt="Top Image" class="top-png-image">
         </div>
-     <!--    <div class="banner-container">
+        <div class="banner-container">
             <img src="banneri.png" alt="Banner image" class="banner-image">
 
-        </div>-->
+        </div>
     <div class="grid-container">
         
         <!-- Tässä voit lisätä tarvittavat ruudut -->
@@ -35,7 +35,7 @@
         <div class="grid-item" id="cell-8"></div>
         <div class="grid-item" id="cell-9"></div>
         <div class="grid-item right" id="cell-10"></div>
-        <div class="grid-item" id="cell-11">1</div>
+        <div class="grid-item" id="cell-11"></div>
         <div class="grid-item" id="cell-12"></div>
         <div class="grid-item" id="cell-13"></div>
         <div class="grid-item" id="cell-14"></div>
@@ -65,7 +65,7 @@
         <div class="grid-item" id="cell-35"></div>
         <div class="grid-item" id="cell-36"></div>
         <div class="grid-item" id="cell-37"></div>
-        <div class="grid-item right" id="cell-38">2</div>
+        <div class="grid-item right" id="cell-38"></div>
         <div class="grid-item" id="cell-38"></div>
         <div class="grid-item" id="cell-39"></div>
         <div class="grid-item" id="cell-40"></div>
@@ -79,7 +79,7 @@
         <div class="grid-item" id="cell-48"></div>
         <div class="grid-item" id="cell-34"></div>
         <div class="grid-item" id="cell-47"></div>
-        <div class="grid-item" id="cell-48"></div>
+        <div class="grid-item" id="cell-58"></div>
         
         <div class="grid-item" id="cell-49"></div>
         <div class="grid-item special-5" data-special="true"></div>
@@ -179,11 +179,11 @@
   ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string',null,],
   ['string', 'string', 'string', 'string', 'string', null, 'string', 'string','string','string',],
   ['string', null, null, null, null, null, null, 'string',null,'string',],
-  ['string', 'string', 'string', 'string', null, 'string', null, null,null,null,],
+  ['string', 'string', 'string', 'string', 'string', null, 'string', 'string','string','string',],
   ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string','string',],
-  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', 'string', null, 'string', 'string','string','string',],
+  ['string', 'string', 'string', 'string', 'string', null, 'string', 'string','string','string',],
   ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string','string',],
-  ['string', 'string', 'string', 'string', null, 'string', 'string', 'string','string','string',],
 ];
 // Select all grid items
 const gridItems = document.querySelectorAll('.grid-item');
@@ -261,10 +261,54 @@ function saveCrosswordState() {
     localStorage.setItem('crosswordState', crosswordStateJSON);
 }
 
+
+const grid = document.querySelectorAll('.grid-item');
+
+// Add click event listener to each grid item
+grid.forEach(item => {
+  item.addEventListener('click', () => {
+    // Get index of clicked item
+    const index = Array.from(grid).indexOf(item);
+    
+    // Get row and column of clicked item
+    const row = Math.floor(index / 10);
+    const col = index % 10;
+    
+    // Activate all grid items in the same row
+    for (let i = row * 10; i < (row + 1) * 10; i++) {
+      if (!grid[i].classList.contains('special')) {
+        grid[i].classList.add('active');
+      }
+    }
+    
+    // Set focus on clicked item
+    item.focus();
+    
+    // Add keydown event listener to each active grid item
+    const activeItems = document.querySelectorAll('.active');
+    activeItems.forEach(activeItem => {
+      activeItem.addEventListener('keydown', e => {
+        // Get index of current active item
+        const currentIndex = Array.from(activeItems).indexOf(activeItem);
+        
+        // Get next active item
+        let nextIndex = currentIndex + 1;
+        while (nextIndex < activeItems.length && activeItems[nextIndex].classList.contains('special')) {
+          nextIndex++;
+        }
+        if (nextIndex < activeItems.length) {
+          const nextItem = activeItems[nextIndex];
+          nextItem.focus();
+        }
+      });
+    });
+  });
+});
+
 // Call the loadCrosswordState function to load the crossword state on page load
+
+
 loadCrosswordState();
-
-
 </script>
 
 </body>
