@@ -168,7 +168,49 @@
 
 
 <script>
-   
+ const correctAnswers = [
+            ['A', 'T', 'A', 'R', 'I', null, 'K', 'A', 'R', 'A'],
+            ['M', 'A', 'R', 'I', 'N', null, 'R', 'A','U','K',],
+  ['P', 'U', 'K', 'I', 'N', 'P', 'A', 'R','T','A',],
+  ['P', 'O', 'U', 'T', 'A', null, 'A', 'I','A','I',],
+  ['E', 'T', 'U', 'I', 'L', 'E', 'V', 'A','T',null,],
+  ['L', 'A', 'S', 'T', 'A', null, 'I', 'T','A','R',],
+  ['I', null, null, null, null, null, null, 'T',null,'O',],
+  ['K', 'R', 'A', 'K', 'A', null, 'L', 'O','I','S',],
+  ['U', 'U', 'T', 'I', 'S', 'P', 'O', 'M','M','I',],
+  ['K', 'O', 'R', 'I', 'T', null, 'K', 'U','U','T',],
+  ['K', 'R', 'O', 'M', 'I', null, 'K', 'U','K','A',],
+  ['A', 'I', 'T', 'A', 'A', 'M', 'I', 'S','E','T',],
+];   
+
+   // Funktio tarkistaa, onko ristikko oikein ratkaistu
+   function checkCrossword() {
+            for (let row = 0; row < 12; row++) {
+                for (let col = 0; col < 10; col++) {
+                    const gridItem = gridItems[row * 10 + col];
+                    const userAnswer = gridItem.textContent.toUpperCase();
+                    const correctAnswer = correctAnswers[row][col];
+
+                    if (correctAnswer !== null && userAnswer !== correctAnswer) {
+                        // Ristikko on väärin ratkaistu
+                        alert('Ristikko on ei ole vielä oikein. Yritä uudelleen.');
+                        return;
+                    }
+                }
+            }
+
+            // Kaikki oikein, voit tehdä tarvittavat toimet
+            alert('Onnittelut! Ristikko on oikein ratkaistu. Lähetä viesti: "Joulutähti" Seemoton sähköpostiin, niin pääset osallistumaan arvontaan.');
+        }
+
+        // Lisää muita tarvittavia toimintoja
+
+        // Esimerkki: Lisää painike tarkistuksen käynnistämiseksi
+        const checkButton = document.createElement('button');
+        checkButton.textContent = 'Tarkista ristikko';
+        checkButton.addEventListener('click', checkCrossword);
+        checkButton.classList.add('check-button'); 
+        document.body.appendChild(checkButton);
 
     // Load the game state from localStorage when the page loads
     const crosswordState = [

@@ -163,6 +163,7 @@ body {
     border-top: none;
     border-left: none;
     
+    
    
 }
 
@@ -175,6 +176,7 @@ body {
     border-right: none;
     border-left: none;
     pointer-events: none;
+    margin-right: 1px;
  
     
    
@@ -325,4 +327,19 @@ p{
 .bottom-right{
     border-bottom: 8px solid #000;
     border-right: 8px solid #000;
+}
+.check-button {
+    /* Your styles for the button */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-left: 40px;
+}
+
+.check-button:hover {
+    background-color: #45a049;
 }
