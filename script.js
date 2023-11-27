@@ -158,7 +158,8 @@ function saveCrosswordState() {
         const rowData = [];
         for (let col = 0; col < 10; col++) {
             const gridItem = gridItems[row * 10 + col];
-            rowData.push(gridItem.textContent);
+            const contentSpan = gridItem.querySelector('.content-span');
+            rowData.push(contentSpan ? contentSpan.textContent : '');
         }
         savedCrosswordState.push(rowData);
     }
@@ -166,7 +167,6 @@ function saveCrosswordState() {
     const crosswordStateJSON = JSON.stringify(savedCrosswordState);
     localStorage.setItem('crosswordState', crosswordStateJSON);
 }
-
 
 const grid = document.querySelectorAll('.grid-item');
 
@@ -210,6 +210,23 @@ grid.forEach(item => {
     });
   });
 });
+
+function updateGridItemContent(gridItem, content) {
+    // Find the .static-number and .content-span elements within the grid item
+    const staticNumber = gridItem.querySelector('.static-number');
+    let contentSpan = gridItem.querySelector('.content-span');
+
+    // Ensure there is a span element for content that is not the static number
+    if (!contentSpan) {
+        contentSpan = document.createElement('span');
+        contentSpan.classList.add('content-span');
+        // Append the content span to the grid item
+        gridItem.appendChild(contentSpan);
+    }
+
+    // Update only the content span's text
+    contentSpan.textContent = content;
+}
 
 // Call the loadCrosswordState function to load the crossword state on page load
 loadCrosswordState();

@@ -38,12 +38,13 @@ body {
     height: 100%;
     background-color: white;
     border: 3px solid #000;
-    font-size: 32px; /* Adjust the font size as needed */
+    font-size: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center; /* Center-align the text */
+    text-align: center;
     cursor: pointer;
+    position: relative; /* Position added here */
 }
 
 .special-1{
@@ -402,3 +403,14 @@ p{
   .help-button:hover {
     background-color: #e31e0a;
   }
+
+/* Additional styles */
+.static-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 0.7em;
+    color: #333;
+    pointer-events: none;
+    font-weight: 800;
+}
