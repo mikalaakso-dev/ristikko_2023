@@ -338,7 +338,7 @@ p{
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .check-button:hover {
@@ -414,3 +414,53 @@ p{
     pointer-events: none;
     font-weight: 800;
 }
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
+
+.crossword-section {
+  page-break-inside: avoid;
+}
+
+.erase-crossword-button {
+    /* Your styles for the button */
+    background-color: #1876b3;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.erase-crossword-button:hover {
+    background-color: #45a049;
+}
+
+
+.print-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    
+    font-size: 16px;
+    margin-left: 20px; 
+    margin-bottom: 10px;
+    
+}
+  
+  .print-button:hover {
+    background-color: #e31e0a;
+  }
+

@@ -31,17 +31,17 @@
             }
 
             // Kaikki oikein, voit tehdä tarvittavat toimet
-            alert('Onnittelut! Ristikko on oikein ratkaistu. Lähetä viesti: "Joulutähti" Seemoton sähköpostiin, niin pääset osallistumaan arvontaan.');
+            alert('Onnittelut! Ristikko on oikein ratkaistu. Lähetä ratkaisusana Seemoton sähköpostiin support@seemoto.com, niin pääset osallistumaan arvontaan.');
         }
 
         // Lisää muita tarvittavia toimintoja
 
         // Esimerkki: Lisää painike tarkistuksen käynnistämiseksi
-        const checkButton = document.createElement('button');
+        
         checkButton.textContent = 'Tarkista ristikko';
         checkButton.addEventListener('click', checkCrossword);
         checkButton.classList.add('check-button'); 
-        document.body.appendChild(checkButton);
+        
 
     // Load the game state from localStorage when the page loads
     const crosswordState = [
@@ -226,6 +226,22 @@ function updateGridItemContent(gridItem, content) {
 
     // Update only the content span's text
     contentSpan.textContent = content;
+}
+
+const eraseButton = document.getElementById('eraseCrosswordButton');
+
+// Add a click event listener to the erase button
+eraseButton.addEventListener('click', eraseCrossword);
+
+// Function to erase the crossword letters
+function eraseCrossword() {
+    // Loop through all grid items and reset their content to an empty string
+    gridItems.forEach(function(gridItem) {
+        updateGridItemContent(gridItem, ''); // Assuming you have an updateGridItemContent function
+    });
+
+    // Save the crossword state after erasing
+    saveCrosswordState();
 }
 
 // Call the loadCrosswordState function to load the crossword state on page load
