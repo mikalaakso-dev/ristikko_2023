@@ -59,47 +59,109 @@
   ['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string','string','string',],
 ];
 // Select all grid items
+// Select all grid items
 const gridItems = document.querySelectorAll('.grid-item');
 
 // Track the currently selected grid item
 let selectedGridItem = null;
 
+// Track the current direction (horizontal or vertical)
+let direction = 'horizontal';
+
 // Function to update the grid item's content
 function updateGridItemContent(gridItem, content) {
+    // Check if the grid item is special
     if (!gridItem.classList.contains('special')) {
         gridItem.textContent = content;
     }
 }
 
-// Add click event listeners to each grid item
+function highlightRowOrColumn(gridItem) {
+    // Remove the blue class from all grid items
+    gridItems.forEach(item => item.classList.remove('blue', 'dark-blue'));
+
+    // Get the index of the clicked grid item
+    const index = Array.from(gridItems).indexOf(gridItem);
+
+    // Calculate the row and column number
+    const row = Math.floor(index / 10);
+    const column = index % 10;
+
+    // Highlight the row or column
+    for (let i = 0; i < 10; i++) {
+        const itemIndex = direction === 'horizontal' ? row * 10 + i : column + i * 10;
+        const item = gridItems[itemIndex];
+        if (item) {
+            // Stop if the item is special and it's not the clicked grid item
+            if (item.dataset.special === 'true' && item !== gridItem) {
+                break;
+            }
+            // Add the blue class unless the item is special and it's not the clicked grid item
+            if (!(item.dataset.special === 'true' && item !== gridItem)) {
+                item.classList.add('blue');
+            }
+            // Break if it's the last item in the row or column
+            if (itemIndex % 10 === 9) {
+                break;
+            }
+        }
+    }
+
+    // Highlight the clicked grid item
+    gridItem.classList.add('dark-blue');
+}
+
 gridItems.forEach(function(gridItem) {
     gridItem.addEventListener('click', function() {
-        // Remove the blue class from the previously selected grid item
-        if (selectedGridItem) {
-            selectedGridItem.classList.remove('blue');
+        // If the clicked grid item is the currently selected grid item, switch the direction
+        if (gridItem === selectedGridItem) {
+            direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
+        } else {
+            // Set the currently selected grid item
+            selectedGridItem = gridItem;
         }
 
-        // Set the currently selected grid item
-        selectedGridItem = gridItem;
-
-        // Add the blue class to the clicked grid item
-        selectedGridItem.classList.add('blue');
+        // Highlight the row or column
+        highlightRowOrColumn(selectedGridItem);
     });
 });
 
-// Listen for keyboard input
 document.addEventListener('keydown', function(event) {
     if (selectedGridItem) {
         if (/^[A-Öa-ö]$/.test(event.key)) {
-            updateGridItemContent(selectedGridItem, event.key.toUpperCase());
-            saveCrosswordState();
+            // Only update the content and move to the next grid item if the current item is not special
+            if (!selectedGridItem.dataset.special) {
+                updateGridItemContent(selectedGridItem, event.key.toUpperCase());
+                saveCrosswordState();
+
+                // Move to the next grid item
+                let index = Array.from(gridItems).indexOf(selectedGridItem);
+                let nextIndex = direction === 'horizontal' ? index + 1 : index + 12;
+                while (gridItems[nextIndex] && gridItems[nextIndex].dataset.special) {
+                    nextIndex = direction === 'horizontal' ? nextIndex + 1 : nextIndex + 12;
+                }
+                if (gridItems[nextIndex]) {
+                    selectedGridItem = gridItems[nextIndex];
+                    highlightRowOrColumn(selectedGridItem);
+                }
+            }
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
             updateGridItemContent(selectedGridItem, '');
             saveCrosswordState();
+
+            // Move to the previous grid item
+            let index = Array.from(gridItems).indexOf(selectedGridItem);
+            let prevIndex = direction === 'horizontal' ? index - 1 : index - 12;
+            while (gridItems[prevIndex] && gridItems[prevIndex].dataset.special) {
+                prevIndex = direction === 'horizontal' ? prevIndex - 1 : prevIndex - 12;
+            }
+            if (gridItems[prevIndex]) {
+                selectedGridItem = gridItems[prevIndex];
+                highlightRowOrColumn(selectedGridItem);
+            }
         }
     }
 });
-
 // Load the game state from localStorage when the page loads
 function loadCrosswordState() {
     const savedCrosswordStateJSON = localStorage.getItem('crosswordState');
@@ -232,6 +294,9 @@ const eraseButton = document.getElementById('eraseCrosswordButton');
 
 // Add a click event listener to the erase button
 eraseButton.addEventListener('click', eraseCrossword);
+
+
+
 
 // Function to erase the crossword letters
 function eraseCrossword() {
