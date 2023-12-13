@@ -70,98 +70,123 @@ let direction = 'horizontal';
 
 // Function to update the grid item's content
 function updateGridItemContent(gridItem, content) {
-    // Check if the grid item is special
     if (!gridItem.classList.contains('special')) {
         gridItem.textContent = content;
     }
 }
 
-function highlightRowOrColumn(gridItem) {
-    // Remove the blue class from all grid items
-    gridItems.forEach(item => item.classList.remove('blue', 'dark-blue'));
+function clearActiveAndSelected() {
+    gridItems.forEach(item => item.classList.remove('active', 'selected'));
+}
 
-    // Get the index of the clicked grid item
-    const index = Array.from(gridItems).indexOf(gridItem);
+function setActiveRowOrColumn(selectedItem) {
+    clearActiveAndSelected(); // Clear previous active and selected items
 
-    // Calculate the row and column number
-    const row = Math.floor(index / 10);
-    const column = index % 10;
+    const index = Array.from(gridItems).indexOf(selectedItem);
+    const row = Math.floor(index / 10); // Assuming 10 items per row
+    const column = index % 10; // Assuming 10 columns
 
-    // Highlight the row or column
-    for (let i = 0; i < 10; i++) {
-        const itemIndex = direction === 'horizontal' ? row * 10 + i : column + i * 10;
-        const item = gridItems[itemIndex];
-        if (item) {
-            // Stop if the item is special and it's not the clicked grid item
-            if (item.dataset.special === 'true' && item !== gridItem) {
+    let itemIndex;
+    let item;
+
+    if (direction === 'horizontal') {
+        for (let i = 0; i < 10; i++) {
+            itemIndex = row * 10 + i;
+            item = gridItems[itemIndex];
+            // If we encounter a special item or the edge, stop highlighting
+            if (!item || item.classList.contains('special')) {
                 break;
             }
-            // Add the blue class unless the item is special and it's not the clicked grid item
-            if (!(item.dataset.special === 'true' && item !== gridItem)) {
-                item.classList.add('blue');
-            }
-            // Break if it's the last item in the row or column
-            if (itemIndex % 10 === 9) {
+            item.classList.add('active');
+        }
+    } else { // Vertical
+        for (let i = 0; i < gridItems.length / 10; i++) {
+            itemIndex = i * 10 + column;
+            item = gridItems[itemIndex];
+            // If we encounter a special item or the edge, stop highlighting
+            if (!item || item.classList.contains('special')) {
                 break;
             }
+            item.classList.add('active');
         }
     }
 
-    // Highlight the clicked grid item
-    gridItem.classList.add('dark-blue');
+    // Ensure the selected item is always highlighted as selected
+    selectedItem.classList.add('selected');
+}
+
+function moveGridItemFocus(step) {
+    let index = Array.from(gridItems).indexOf(selectedGridItem);
+    let nextIndex = index + (direction === 'horizontal' ? step : step * 10);
+
+    // Avoid wrapping to the next line if we're at the edge
+    if (direction === 'horizontal' && (nextIndex % 10 === 0 || nextIndex % 10 === 9)) {
+        return;
+    }
+    // Avoid moving vertically beyond the grid
+    if (direction === 'vertical' && (nextIndex < 0 || nextIndex >= gridItems.length)) {
+        return;
+    }
+
+    let nextItem = gridItems[nextIndex];
+    if (nextItem && !nextItem.classList.contains('special')) {
+        // Move the focus to the next item if it's not special
+        clearActiveAndSelected();
+        selectedGridItem = nextItem;
+        setActiveRowOrColumn(selectedGridItem);
+        selectedGridItem.classList.add('selected');
+    }
 }
 
 gridItems.forEach(function(gridItem) {
     gridItem.addEventListener('click', function() {
-        // If the clicked grid item is the currently selected grid item, switch the direction
+        clearActiveAndSelected();
+
         if (gridItem === selectedGridItem) {
             direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
         } else {
-            // Set the currently selected grid item
             selectedGridItem = gridItem;
         }
 
-        // Highlight the row or column
-        highlightRowOrColumn(selectedGridItem);
+        setActiveRowOrColumn(selectedGridItem);
+        selectedGridItem.classList.add('selected');
     });
 });
 
 document.addEventListener('keydown', function(event) {
-    if (selectedGridItem) {
+    // Ensure there is a selected grid item and it's not a special item
+    if (selectedGridItem && !selectedGridItem.dataset.special) {
+        // Check if the key pressed is a valid character for your crossword
         if (/^[A-Öa-ö]$/.test(event.key)) {
-            // Only update the content and move to the next grid item if the current item is not special
-            if (!selectedGridItem.dataset.special) {
-                updateGridItemContent(selectedGridItem, event.key.toUpperCase());
-                saveCrosswordState();
-
-                // Move to the next grid item
-                let index = Array.from(gridItems).indexOf(selectedGridItem);
-                let nextIndex = direction === 'horizontal' ? index + 1 : index + 12;
-                while (gridItems[nextIndex] && gridItems[nextIndex].dataset.special) {
-                    nextIndex = direction === 'horizontal' ? nextIndex + 1 : nextIndex + 12;
-                }
-                if (gridItems[nextIndex]) {
-                    selectedGridItem = gridItems[nextIndex];
-                    highlightRowOrColumn(selectedGridItem);
-                }
-            }
+            // Update the content of the grid item and move to the next one
+            updateGridItemContent(selectedGridItem, event.key.toUpperCase());
+            moveGridItemFocus(1);
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
+            // Clear the content of the grid item and move to the previous one
             updateGridItemContent(selectedGridItem, '');
-            saveCrosswordState();
-
-            // Move to the previous grid item
-            let index = Array.from(gridItems).indexOf(selectedGridItem);
-            let prevIndex = direction === 'horizontal' ? index - 1 : index - 12;
-            while (gridItems[prevIndex] && gridItems[prevIndex].dataset.special) {
-                prevIndex = direction === 'horizontal' ? prevIndex - 1 : prevIndex - 12;
-            }
-            if (gridItems[prevIndex]) {
-                selectedGridItem = gridItems[prevIndex];
-                highlightRowOrColumn(selectedGridItem);
-            }
+            moveGridItemFocus(-1);
         }
     }
 });
+
+function moveGridItemFocus(step) {
+    let index = Array.from(gridItems).indexOf(selectedGridItem);
+    let nextIndex = index + (direction === 'horizontal' ? step : step * 10);
+
+    // Prevent moving to a different row when horizontal
+    if (direction === 'horizontal' && Math.floor(nextIndex / 10) !== Math.floor(index / 10)) {
+        return;
+    }
+
+    // Prevent moving into special items
+    if (nextIndex >= 0 && nextIndex < gridItems.length && !gridItems[nextIndex].classList.contains('special')) {
+        clearActiveAndSelected();
+        selectedGridItem = gridItems[nextIndex];
+        setActiveRowOrColumn(selectedGridItem);
+        selectedGridItem.classList.add('selected');
+    }
+}
+
 // Load the game state from localStorage when the page loads
 function loadCrosswordState() {
     const savedCrosswordStateJSON = localStorage.getItem('crosswordState');
@@ -308,6 +333,21 @@ function eraseCrossword() {
     // Save the crossword state after erasing
     saveCrosswordState();
 }
+document.getElementById('capture').addEventListener('click', function() {
+    html2canvas(document.body).then(function(canvas) {
+        // Create an image
+        var img = canvas.toDataURL("image/png");
 
+        // Create a link
+        var link = document.createElement('a');
+        link.href = img;
+
+        // Set the download attribute of the link
+        link.download = 'screenshot.png';
+
+        // Trigger the download by simulating a click
+        link.click();
+    });
+});
 // Call the loadCrosswordState function to load the crossword state on page load
 loadCrosswordState();

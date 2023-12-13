@@ -466,3 +466,10 @@ p{
 
   /* Existing styles */
 
+  .active {
+    background-color: lightblue; /* Light blue for active items */
+}
+
+.selected {
+    background-color: #6aa7cc; /* Darker blue for the selected item */
+}
