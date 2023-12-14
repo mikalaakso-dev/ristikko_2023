@@ -74,7 +74,7 @@ body {
 
     background-image: url('kolmas-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: contain;
     background-position: center center;
     border-right: none;
     pointer-events: none;
@@ -85,7 +85,7 @@ body {
 
     background-image: url('neljäs-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: contain;
     background-position: center center;
     
     pointer-events: none;
@@ -98,7 +98,7 @@ body {
     background-image: url('viides-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: contain;
     
     border-bottom: none;
     
@@ -110,7 +110,7 @@ body {
 
     background-image: url('kuudes-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: contain;
     background-position: center center;
    
    border-right: none;
@@ -123,7 +123,7 @@ body {
 
     background-image: url('7-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: contain;
     background-position: center center;
    border-right: none;
    
@@ -136,7 +136,7 @@ body {
     background-image: url('8-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: contain;
   border-left: none;
   border-right: none;
     pointer-events: none;
@@ -147,7 +147,7 @@ body {
     background-image: url('9-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: 100% auto;
   border-left: none;
   border-right: none;
     pointer-events: none;
@@ -189,7 +189,7 @@ body {
     background-image: url('12-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: contain;
     
     
     pointer-events: none;
@@ -201,7 +201,7 @@ body {
     background-image: url('13-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: contain;
     padding-right: 3px;
     border-top: none;
     pointer-events: none;
@@ -227,7 +227,7 @@ body {
     background-image: url('15-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: contain;
     border-top: none;
     
     pointer-events: none;
@@ -239,7 +239,7 @@ body {
     background-image: url('16-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
+    background-size: contain;
     
     border-left: none;
     pointer-events: none;
