@@ -147,7 +147,7 @@ body {
     background-image: url('9-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100% auto;
+    background-size: 120%;
   border-left: none;
   border-right: none;
     pointer-events: none;
