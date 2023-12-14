@@ -64,106 +64,146 @@ let selectedGridItem = null;
 // Track the current direction (horizontal or vertical)
 let direction = 'horizontal';
 
-// Function to update the grid item's content
-function updateGridItemContent(gridItem, content) {
-    if (!gridItem.classList.contains('special')) {
-        gridItem.textContent = content;
-    }
-}
 
-function clearActiveAndSelected() {
-    gridItems.forEach(item => {
-        item.classList.remove('active', 'selected');
-    });
-}
-function setActiveRowOrColumn(selectedItem) {
-    clearActiveAndSelected(); // Clear previous active and selected items
 
-    const index = Array.from(gridItems).indexOf(selectedItem);
-    const totalColumns = 10; // The total number of columns in your grid
-    const totalRows = gridItems.length / totalColumns; // Calculate the total number of rows
-    const row = Math.floor(index / totalColumns);
-    const column = index % totalColumns;
 
-    let start, end, step;
 
-    if (direction === 'horizontal') {
-        start = row * totalColumns; // Start of the row
-        end = start + totalColumns; // End of the row
-        step = 1; // Move horizontally
-    } else {
-        start = column; // Start of the column
-        end = totalRows * totalColumns; // End of the grid
-        step = totalColumns; // Move vertically
+
+
+
+
+
+class GridManager {
+    constructor(gridItems) {
+        this.gridItems = gridItems;
+        this.selectedGridItem = null;
+        this.direction = 'horizontal';
+        this.attachEventListeners();
     }
 
-    // Apply 'active' class to non-special items from the selected item in the specified direction
-    for (let i = start; (direction === 'horizontal' && i < end) || (direction === 'vertical' && i < end); i += step) {
-        const item = gridItems[i];
-        if (!item || item.classList.contains('special')) {
-            // Stop if a special grid item is encountered
-            break;
-        }
-        item.classList.add('active');
+    attachEventListeners() {
+        this.gridItems.forEach((gridItem, index) => {
+            gridItem.addEventListener('click', () => this.handleItemClick(gridItem, index));
+        });
+        document.addEventListener('keydown', (event) => this.handleKeyDown(event));
     }
 
-    // Ensure the selected item is always highlighted as selected
-    selectedItem.classList.add('selected');
-}
+    
 
-function moveGridItemFocus(step) {
-    let index = Array.from(gridItems).indexOf(selectedGridItem);
-    let nextIndex = index + (direction === 'horizontal' ? step : step * 10);
-
-    // Avoid wrapping to the next line if we're at the edge
-    if (direction === 'horizontal' && (nextIndex % 10 === 0 || nextIndex % 10 === 9)) {
-        return;
-    }
-    // Avoid moving vertically beyond the grid
-    if (direction === 'vertical' && (nextIndex < 0 || nextIndex >= gridItems.length)) {
-        return;
-    }
-
-    let nextItem = gridItems[nextIndex];
-    if (nextItem && !nextItem.classList.contains('special')) {
-        // Move the focus to the next item if it's not special
-        clearActiveAndSelected();
-        selectedGridItem = nextItem;
-        setActiveRowOrColumn(selectedGridItem);
-        selectedGridItem.classList.add('selected');
-    }
-}
-
-gridItems.forEach(function(gridItem) {
-    gridItem.addEventListener('click', function() {
-        // If the same grid item is clicked again, switch direction
-        if (gridItem === selectedGridItem) {
-            direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
+    handleItemClick(gridItem, index) {
+        if (this.selectedGridItem === gridItem) {
+            this.direction = this.direction === 'horizontal' ? 'vertical' : 'horizontal';
         } else {
-            // If a different grid item is clicked, start with horizontal
-            selectedGridItem = gridItem;
-            direction = 'horizontal';
+            this.selectedGridItem = gridItem;
+            this.direction = 'horizontal';
         }
-        setActiveRowOrColumn(selectedGridItem); // Highlight the grid items in the new direction
-    });
-});
-document.addEventListener('keydown', function(event) {
-    // Ensure there is a selected grid item and it's not a special item
-    if (selectedGridItem && !selectedGridItem.dataset.special) {
-        // Check if the key pressed is a valid character for your crossword
-        if (/^[A-Öa-ö]$/.test(event.key)) {
-            // Update the content of the grid item and move to the next one
-            updateGridItemContent(selectedGridItem, event.key.toUpperCase());
-            moveGridItemFocus(1);
-            saveCrosswordState()
-        } else if (event.key === 'Delete' || event.key === 'Backspace') {
-            // Clear the content of the grid item and move to the previous one
-            updateGridItemContent(selectedGridItem, '');
-            moveGridItemFocus(-1);
-            saveCrosswordState()
+
+        this.clearActiveAndSelected();
+        this.setActiveRowOrColumn(index);
+        gridItem.classList.add('selected');
+    }
+    moveGridItemFocus(step) {
+        if (!this.selectedGridItem) return;
+    
+        let index = Array.from(this.gridItems).indexOf(this.selectedGridItem);
+        let nextIndex = index + step * (this.direction === 'horizontal' ? 1 : 10);
+    
+        // Check bounds for horizontal movement and ensure we don't wrap to the next row
+        if (this.direction === 'horizontal' && (Math.floor(nextIndex / 10) !== Math.floor(index / 10) || nextIndex < 0 || nextIndex >= this.gridItems.length)) {
+            return;
+        }
+    
+        // Check bounds for vertical movement
+        if (this.direction === 'vertical' && (nextIndex < 0 || nextIndex >= this.gridItems.length)) {
+            return;
+        }
+    
+        let nextItem = this.gridItems[nextIndex];
+    
+        // If the next item is a special one, skip it by calling moveGridItemFocus recursively
+        if (nextItem && nextItem.dataset.special === "true") {
+            // Adjust step to skip over the special item
+            this.moveGridItemFocus(step + (step > 0 ? 1 : -1));
+            return;
+        }
+    
+        // If we have a valid next item that is not special, move the focus to it
+        if (nextItem) {
+            this.clearActiveAndSelected();
+            this.selectedGridItem = nextItem;
+            this.setActiveRowOrColumn(nextIndex);
+            nextItem.classList.add('selected', 'active');
         }
     }
+
+    clearActiveAndSelected() {
+        this.gridItems.forEach(item => {
+            item.classList.remove('active', 'selected');
+        });
+    }
+
+    setActiveRowOrColumn(index) {
+        const { row, col } = this.getRowCol(index);
+
+        if (this.direction === 'horizontal') {
+            for (let i = row * 10; i < (row + 1) * 10; i++) {
+                this.gridItems[i].classList.add('active');
+            }
+        } else {
+            for (let i = col; i < this.gridItems.length; i += 10) {
+                this.gridItems[i].classList.add('active');
+            }
+        }
+    }
+    updateGridItemContent(gridItem, content) {
+        // Check if the grid item is marked as special before updating its content
+        if (gridItem.dataset.special === "true") {
+            return; // Do not update content for special items
+        }
+
+        let contentSpan = gridItem.querySelector('.content-span');
+        if (!contentSpan) {
+            contentSpan = document.createElement('span');
+            contentSpan.classList.add('content-span');
+            gridItem.appendChild(contentSpan);
+        }
+        contentSpan.textContent = content;
+    }
+
+    handleKeyDown(event) {
+        // Only proceed if a grid item is selected
+        if (!this.selectedGridItem) return;
+
+        // Prevent input on special grid items
+        if (this.selectedGridItem.dataset.special === "true") return;
+
+        if (/^[A-ZÖÄÅa-zöäå]$/.test(event.key)) {
+            this.updateGridItemContent(this.selectedGridItem, event.key.toUpperCase());
+            this.moveGridItemFocus(1);  // Move to the next item
+            saveCrosswordState();
+        } else if (event.key === 'Delete' || event.key === 'Backspace') {
+            this.updateGridItemContent(this.selectedGridItem, '');
+            this.moveGridItemFocus(-1); // Move to the previous item
+            saveCrosswordState();
+        }
+    }
+
+    getRowCol(index) {
+        return {
+            row: Math.floor(index / 10),
+            col: index % 10
+        };
+    }
+}
+
+// Usage
+document.addEventListener('DOMContentLoaded', () => {
+    const gridItems = document.querySelectorAll('.grid-item');
+    new GridManager(gridItems);
 });
+
+
+
 
 function moveGridItemFocus(step) {
     let index = Array.from(gridItems).indexOf(selectedGridItem);

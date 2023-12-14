@@ -50,11 +50,12 @@ body {
 .special-1{
     background-image: url('eka-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100%;
     background-position: center center;
     border-bottom: white;
     border-top: white;
     pointer-events: none;
+    background-color: white;
 
   
 }
@@ -63,7 +64,7 @@ body {
 
     background-image: url('toka-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100%;
     background-position: center center;
     border-top: none;
     pointer-events: none;
@@ -73,7 +74,7 @@ body {
 
     background-image: url('kolmas-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100%;
     background-position: center center;
     border-right: none;
     pointer-events: none;
@@ -84,7 +85,7 @@ body {
 
     background-image: url('neljäs-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100%;
     background-position: center center;
     
     pointer-events: none;
@@ -97,7 +98,7 @@ body {
     background-image: url('viides-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
     
     border-bottom: none;
     
@@ -109,7 +110,7 @@ body {
 
     background-image: url('kuudes-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 90%;
+    background-size: 100%;
     background-position: center center;
    
    border-right: none;
@@ -122,7 +123,7 @@ body {
 
     background-image: url('7-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100%;
     background-position: center center;
    border-right: none;
    
@@ -135,7 +136,7 @@ body {
     background-image: url('8-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
   border-left: none;
   border-right: none;
     pointer-events: none;
@@ -146,7 +147,7 @@ body {
     background-image: url('9-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 90%;
+    background-size: 100%;
   border-left: none;
   border-right: none;
     pointer-events: none;
@@ -188,7 +189,7 @@ body {
     background-image: url('12-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
     
     
     pointer-events: none;
@@ -200,7 +201,7 @@ body {
     background-image: url('13-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
     padding-right: 3px;
     border-top: none;
     pointer-events: none;
@@ -213,7 +214,7 @@ body {
     background-image: url('14-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
     border-bottom: none;
     
    
@@ -226,7 +227,7 @@ body {
     background-image: url('15-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
     border-top: none;
     
     pointer-events: none;
@@ -238,7 +239,7 @@ body {
     background-image: url('16-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 80%;
+    background-size: 100%;
     
     border-left: none;
     pointer-events: none;
