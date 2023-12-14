@@ -205,24 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-function moveGridItemFocus(step) {
-    let index = Array.from(gridItems).indexOf(selectedGridItem);
-    let nextIndex = index + (direction === 'horizontal' ? step : step * 10);
-
-    // Prevent moving to a different row when horizontal
-    if (direction === 'horizontal' && Math.floor(nextIndex / 10) !== Math.floor(index / 10)) {
-        return;
-    }
-
-    // Prevent moving into special items
-    if (nextIndex >= 0 && nextIndex < gridItems.length && !gridItems[nextIndex].classList.contains('special')) {
-        clearActiveAndSelected();
-        selectedGridItem = gridItems[nextIndex];
-        setActiveRowOrColumn(selectedGridItem);
-        selectedGridItem.classList.add('selected');
-    }
-}
-
 function loadCrosswordState() {
     const savedCrosswordStateJSON = localStorage.getItem('crosswordState');
     if (savedCrosswordStateJSON) {
@@ -370,21 +352,6 @@ function eraseCrossword() {
     // Save the crossword state after erasing
     saveCrosswordState();
 }
-document.getElementById('capture').addEventListener('click', function() {
-    html2canvas(document.body).then(function(canvas) {
-        // Create an image
-        var img = canvas.toDataURL("image/png");
 
-        // Create a link
-        var link = document.createElement('a');
-        link.href = img;
-
-        // Set the download attribute of the link
-        link.download = 'screenshot.png';
-
-        // Trigger the download by simulating a click
-        link.click();
-    });
-});
 // Call the loadCrosswordState function to load the crossword state on page load
 loadCrosswordState();
