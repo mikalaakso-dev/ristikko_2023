@@ -1,46 +1,42 @@
 
  const correctAnswers = [
             ['A', 'T', 'A', 'R', 'I', null, 'K', 'A', 'R', 'A'],
-            ['M', 'A', 'R', 'I', 'N', null, 'R', 'A','U','K',],
+            ['1M', 'A', 'R', 'I', 'N', null, 'R', 'A','U','K',],
   ['P', 'U', 'K', 'I', 'N', 'P', 'A', 'R','T','A',],
-  ['P', 'O', 'U', 'T', 'A', null, 'A', 'I','A','I',],
-  ['E', 'T', 'U', 'I', 'L', 'E', 'V', 'A','T',null,],
-  ['L', 'A', 'S', 'T', 'A', null, 'I', 'T','A','R',],
+  ['P', 'O', 'U', 'T', 'A', null, 'A', 'I','A','2I',],
+  ['E', '3T', 'U', 'I', 'L', 'E', 'V', 'A','T',null,],
+  ['L', 'A', 'S', 'T', 'A', null, 'I', '4T','A','R',],
   ['I', null, null, null, null, null, null, 'T',null,'O',],
-  ['K', 'R', 'A', 'K', 'A', null, 'L', 'O','I','S',],
+  ['K', 'R', '5A', 'K', 'A', null, 'L', 'O','I','S',],
   ['U', 'U', 'T', 'I', 'S', 'P', 'O', 'M','M','I',],
-  ['K', 'O', 'R', 'I', 'T', null, 'K', 'U','U','T',],
+  ['K', 'O', 'R', 'I', 'T', null, 'K', 'U','6U','T',],
   ['K', 'R', 'O', 'M', 'I', null, 'K', 'U','K','A',],
-  ['A', 'I', 'T', 'A', 'A', 'M', 'I', 'S','E','T',],
+  ['A', 'I', 'T', 'A', 'A', 'M', 'I', '7S','E','T',],
 ];   
 
    // Funktio tarkistaa, onko ristikko oikein ratkaistu
    function checkCrossword() {
-            for (let row = 0; row < 12; row++) {
-                for (let col = 0; col < 10; col++) {
-                    const gridItem = gridItems[row * 10 + col];
-                    const userAnswer = gridItem.textContent.toUpperCase();
-                    const correctAnswer = correctAnswers[row][col];
+    for (let row = 0; row < 12; row++) {
+        for (let col = 0; col < 10; col++) {
+            const gridItem = gridItems[row * 10 + col];
+            const userAnswer = gridItem.textContent.toUpperCase().trim(); // Trim whitespace
+            const correctAnswer = correctAnswers[row][col];
 
-                    if (correctAnswer !== null && userAnswer !== correctAnswer) {
-                        // Ristikko on väärin ratkaistu
-                        alert('Ristikko ei ole vielä oikein. Yritä uudelleen.');
-                        return;
-                    }
-                }
+            console.log(`Row ${row}, Col ${col}, User: ${userAnswer}, Correct: ${correctAnswer}`);
+
+            if (correctAnswer !== null && userAnswer !== correctAnswer) {
+                alert('Ristikko ei ole vielä oikein. Yritä uudelleen.');
+                return;
             }
-
-            // Kaikki oikein, voit tehdä tarvittavat toimet
-            alert('Onnittelut! Ristikko on oikein ratkaistu. Lähetä ratkaisusana Seemoton sähköpostiin support@seemoto.com, niin pääset osallistumaan arvontaan.');
         }
+    }
+    alert('Onnittelut! Ristikko on oikein ratkaistu.');
+}
 
-        // Lisää muita tarvittavia toimintoja
-
-        // Esimerkki: Lisää painike tarkistuksen käynnistämiseksi
-        
-        checkButton.textContent = 'Tarkista ristikko';
-        checkButton.addEventListener('click', checkCrossword);
-        checkButton.classList.add('check-button'); 
+// Example: Add a button to initiate the check
+checkButton.textContent = 'Tarkista ristikko';
+checkButton.addEventListener('click', checkCrossword);
+checkButton.classList.add('check-button');
         
 
     // Load the game state from localStorage when the page loads
@@ -76,39 +72,39 @@ function updateGridItemContent(gridItem, content) {
 }
 
 function clearActiveAndSelected() {
-    gridItems.forEach(item => item.classList.remove('active', 'selected'));
+    gridItems.forEach(item => {
+        item.classList.remove('active', 'selected');
+    });
 }
-
 function setActiveRowOrColumn(selectedItem) {
     clearActiveAndSelected(); // Clear previous active and selected items
 
     const index = Array.from(gridItems).indexOf(selectedItem);
-    const row = Math.floor(index / 10); // Assuming 10 items per row
-    const column = index % 10; // Assuming 10 columns
+    const totalColumns = 10; // The total number of columns in your grid
+    const totalRows = gridItems.length / totalColumns; // Calculate the total number of rows
+    const row = Math.floor(index / totalColumns);
+    const column = index % totalColumns;
 
-    let itemIndex;
-    let item;
+    let start, end, step;
 
     if (direction === 'horizontal') {
-        for (let i = 0; i < 10; i++) {
-            itemIndex = row * 10 + i;
-            item = gridItems[itemIndex];
-            // If we encounter a special item or the edge, stop highlighting
-            if (!item || item.classList.contains('special')) {
-                break;
-            }
-            item.classList.add('active');
+        start = row * totalColumns; // Start of the row
+        end = start + totalColumns; // End of the row
+        step = 1; // Move horizontally
+    } else {
+        start = column; // Start of the column
+        end = totalRows * totalColumns; // End of the grid
+        step = totalColumns; // Move vertically
+    }
+
+    // Apply 'active' class to non-special items from the selected item in the specified direction
+    for (let i = start; (direction === 'horizontal' && i < end) || (direction === 'vertical' && i < end); i += step) {
+        const item = gridItems[i];
+        if (!item || item.classList.contains('special')) {
+            // Stop if a special grid item is encountered
+            break;
         }
-    } else { // Vertical
-        for (let i = 0; i < gridItems.length / 10; i++) {
-            itemIndex = i * 10 + column;
-            item = gridItems[itemIndex];
-            // If we encounter a special item or the edge, stop highlighting
-            if (!item || item.classList.contains('special')) {
-                break;
-            }
-            item.classList.add('active');
-        }
+        item.classList.add('active');
     }
 
     // Ensure the selected item is always highlighted as selected
@@ -140,19 +136,17 @@ function moveGridItemFocus(step) {
 
 gridItems.forEach(function(gridItem) {
     gridItem.addEventListener('click', function() {
-        clearActiveAndSelected();
-
+        // If the same grid item is clicked again, switch direction
         if (gridItem === selectedGridItem) {
             direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
         } else {
+            // If a different grid item is clicked, start with horizontal
             selectedGridItem = gridItem;
+            direction = 'horizontal';
         }
-
-        setActiveRowOrColumn(selectedGridItem);
-        selectedGridItem.classList.add('selected');
+        setActiveRowOrColumn(selectedGridItem); // Highlight the grid items in the new direction
     });
 });
-
 document.addEventListener('keydown', function(event) {
     // Ensure there is a selected grid item and it's not a special item
     if (selectedGridItem && !selectedGridItem.dataset.special) {
@@ -161,10 +155,12 @@ document.addEventListener('keydown', function(event) {
             // Update the content of the grid item and move to the next one
             updateGridItemContent(selectedGridItem, event.key.toUpperCase());
             moveGridItemFocus(1);
+            saveCrosswordState()
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
             // Clear the content of the grid item and move to the previous one
             updateGridItemContent(selectedGridItem, '');
             moveGridItemFocus(-1);
+            saveCrosswordState()
         }
     }
 });
@@ -187,24 +183,26 @@ function moveGridItemFocus(step) {
     }
 }
 
-// Load the game state from localStorage when the page loads
 function loadCrosswordState() {
     const savedCrosswordStateJSON = localStorage.getItem('crosswordState');
     if (savedCrosswordStateJSON) {
         const savedCrosswordState = JSON.parse(savedCrosswordStateJSON);
 
-        // Loop through the grid items and update their content
-        for (let row = 0; row < crosswordState.length; row++) {
-            for (let col = 0; col < crosswordState[0].length; col++) {
-                const gridItem = gridItems[row * crosswordState[0].length + col];
+        for (let row = 0; row < 12; row++) {
+            for (let col = 0; col < 10; col++) {
+                const gridItem = gridItems[row * 10 + col];
                 const content = savedCrosswordState[row][col];
-                updateGridItemContent(gridItem, content);
+                updateGridItemContent(gridItem, content); // Assuming updateGridItemContent function updates the grid item
             }
         }
     }
 }
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get the modal
+    loadCrosswordState();
     var modal = document.getElementById('helpModal');
 
     // Get the button that opens the modal
@@ -236,17 +234,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
+        
     }})
 // Function to save the current crossword state to localStorage
 function saveCrosswordState() {
     const savedCrosswordState = [];
-
     for (let row = 0; row < 12; row++) {
         const rowData = [];
         for (let col = 0; col < 10; col++) {
             const gridItem = gridItems[row * 10 + col];
-            const contentSpan = gridItem.querySelector('.content-span');
-            rowData.push(contentSpan ? contentSpan.textContent : '');
+            const userContent = gridItem.querySelector('.content-span');
+            rowData.push(userContent ? userContent.textContent : ''); // Save only user content
         }
         savedCrosswordState.push(rowData);
     }
@@ -254,6 +252,9 @@ function saveCrosswordState() {
     const crosswordStateJSON = JSON.stringify(savedCrosswordState);
     localStorage.setItem('crosswordState', crosswordStateJSON);
 }
+
+
+
 
 const grid = document.querySelectorAll('.grid-item');
 
@@ -299,22 +300,18 @@ grid.forEach(item => {
 });
 
 function updateGridItemContent(gridItem, content) {
-    // Find the .static-number and .content-span elements within the grid item
-    const staticNumber = gridItem.querySelector('.static-number');
     let contentSpan = gridItem.querySelector('.content-span');
 
-    // Ensure there is a span element for content that is not the static number
+    // If there's no content span, create it and append to the grid item
     if (!contentSpan) {
         contentSpan = document.createElement('span');
         contentSpan.classList.add('content-span');
-        // Append the content span to the grid item
         gridItem.appendChild(contentSpan);
     }
 
-    // Update only the content span's text
+    // Update only the content span's text, preserving any static numbers
     contentSpan.textContent = content;
 }
-
 const eraseButton = document.getElementById('eraseCrosswordButton');
 
 // Add a click event listener to the erase button
