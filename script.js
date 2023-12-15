@@ -65,7 +65,126 @@ let selectedGridItem = null;
 let direction = 'horizontal';
 
 
-
+const vectorData = {'0-0': {'X1': 0, 'X2': 4, 'Y1': 0, 'Y2': 11},
+'0-1': {'X1': 1, 'X2': 3, 'Y1': 0, 'Y2': 5},
+'0-2': {'X1': 2, 'X2': 2, 'Y1': 0, 'Y2': 5},
+'0-3': {'X1': 3, 'X2': 1, 'Y1': 0, 'Y2': 5},
+'0-4': {'X1': 4, 'X2': 0, 'Y1': 0, 'Y2': 5},
+'0-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'0-6': {'X1': 0, 'X2': 3, 'Y1': 0, 'Y2': 5},
+'0-7': {'X1': 1, 'X2': 2, 'Y1': 0, 'Y2': 11},
+'0-8': {'X1': 2, 'X2': 1, 'Y1': 0, 'Y2': 5},
+'0-9': {'X1': 3, 'X2': 0, 'Y1': 0, 'Y2': 3},
+'1-0': {'X1': 0, 'X2': 4, 'Y1': 1, 'Y2': 10},
+'1-1': {'X1': 1, 'X2': 3, 'Y1': 1, 'Y2': 4},
+'1-2': {'X1': 2, 'X2': 2, 'Y1': 1, 'Y2': 4},
+'1-3': {'X1': 3, 'X2': 1, 'Y1': 1, 'Y2': 4},
+'1-4': {'X1': 4, 'X2': 0, 'Y1': 1, 'Y2': 4},
+'1-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'1-6': {'X1': 0, 'X2': 3, 'Y1': 1, 'Y2': 4},
+'1-7': {'X1': 1, 'X2': 2, 'Y1': 1, 'Y2': 10},
+'1-8': {'X1': 2, 'X2': 1, 'Y1': 1, 'Y2': 4},
+'1-9': {'X1': 3, 'X2': 0, 'Y1': 1, 'Y2': 2},
+'2-0': {'X1': 0, 'X2': 9, 'Y1': 2, 'Y2': 9},
+'2-1': {'X1': 1, 'X2': 8, 'Y1': 2, 'Y2': 3},
+'2-2': {'X1': 2, 'X2': 7, 'Y1': 2, 'Y2': 3},
+'2-3': {'X1': 3, 'X2': 6, 'Y1': 2, 'Y2': 3},
+'2-4': {'X1': 4, 'X2': 5, 'Y1': 2, 'Y2': 3},
+'2-5': {'X1': 5, 'X2': 4, 'Y1': 0, 'Y2': 0},
+'2-6': {'X1': 6, 'X2': 3, 'Y1': 2, 'Y2': 3},
+'2-7': {'X1': 7, 'X2': 2, 'Y1': 2, 'Y2': 9},
+'2-8': {'X1': 8, 'X2': 1, 'Y1': 2, 'Y2': 3},
+'2-9': {'X1': 9, 'X2': 0, 'Y1': 2, 'Y2': 1},
+'3-0': {'X1': 0, 'X2': 4, 'Y1': 3, 'Y2': 8},
+'3-1': {'X1': 1, 'X2': 3, 'Y1': 3, 'Y2': 2},
+'3-2': {'X1': 2, 'X2': 2, 'Y1': 3, 'Y2': 2},
+'3-3': {'X1': 3, 'X2': 1, 'Y1': 3, 'Y2': 2},
+'3-4': {'X1': 4, 'X2': 0, 'Y1': 3, 'Y2': 2},
+'3-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'3-6': {'X1': 0, 'X2': 3, 'Y1': 3, 'Y2': 2},
+'3-7': {'X1': 1, 'X2': 2, 'Y1': 3, 'Y2': 8},
+'3-8': {'X1': 2, 'X2': 1, 'Y1': 3, 'Y2': 2},
+'3-9': {'X1': 3, 'X2': 0, 'Y1': 3, 'Y2': 0},
+'4-0': {'X1': 0, 'X2': 8, 'Y1': 4, 'Y2': 7},
+'4-1': {'X1': 1, 'X2': 7, 'Y1': 4, 'Y2': 1},
+'4-2': {'X1': 2, 'X2': 6, 'Y1': 4, 'Y2': 1},
+'4-3': {'X1': 3, 'X2': 5, 'Y1': 4, 'Y2': 1},
+'4-4': {'X1': 4, 'X2': 4, 'Y1': 4, 'Y2': 1},
+'4-5': {'X1': 5, 'X2': 3, 'Y1': 0, 'Y2': 0},
+'4-6': {'X1': 6, 'X2': 2, 'Y1': 4, 'Y2': 1},
+'4-7': {'X1': 7, 'X2': 1, 'Y1': 4, 'Y2': 7},
+'4-8': {'X1': 8, 'X2': 0, 'Y1': 4, 'Y2': 1},
+'4-9': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'5-0': {'X1': 0, 'X2': 4, 'Y1': 5, 'Y2': 6},
+'5-1': {'X1': 1, 'X2': 3, 'Y1': 5, 'Y2': 0},
+'5-2': {'X1': 2, 'X2': 2, 'Y1': 5, 'Y2': 0},
+'5-3': {'X1': 3, 'X2': 1, 'Y1': 5, 'Y2': 0},
+'5-4': {'X1': 4, 'X2': 0, 'Y1': 5, 'Y2': 0},
+'5-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'5-6': {'X1': 0, 'X2': 3, 'Y1': 5, 'Y2': 0},
+'5-7': {'X1': 1, 'X2': 2, 'Y1': 5, 'Y2': 6},
+'5-8': {'X1': 2, 'X2': 1, 'Y1': 5, 'Y2': 0},
+'5-9': {'X1': 3, 'X2': 0, 'Y1': 0, 'Y2': 6},
+'6-0': {'X1': 0, 'X2': 0, 'Y1': 6, 'Y2': 5},
+'6-1': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-2': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-3': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-4': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-6': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-7': {'X1': 0, 'X2': 0, 'Y1': 6, 'Y2': 5},
+'6-8': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'6-9': {'X1': 0, 'X2': 0, 'Y1': 1, 'Y2': 5},
+'7-0': {'X1': 0, 'X2': 4, 'Y1': 7, 'Y2': 4},
+'7-1': {'X1': 1, 'X2': 3, 'Y1': 0, 'Y2': 4},
+'7-2': {'X1': 2, 'X2': 2, 'Y1': 0, 'Y2': 4},
+'7-3': {'X1': 3, 'X2': 1, 'Y1': 0, 'Y2': 4},
+'7-4': {'X1': 4, 'X2': 0, 'Y1': 0, 'Y2': 4},
+'7-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'7-6': {'X1': 0, 'X2': 3, 'Y1': 0, 'Y2': 4},
+'7-7': {'X1': 1, 'X2': 2, 'Y1': 7, 'Y2': 4},
+'7-8': {'X1': 2, 'X2': 1, 'Y1': 0, 'Y2': 4},
+'7-9': {'X1': 3, 'X2': 0, 'Y1': 2, 'Y2': 4},
+'8-0': {'X1': 0, 'X2': 9, 'Y1': 8, 'Y2': 3},
+'8-1': {'X1': 1, 'X2': 8, 'Y1': 1, 'Y2': 3},
+'8-2': {'X1': 2, 'X2': 7, 'Y1': 1, 'Y2': 3},
+'8-3': {'X1': 3, 'X2': 6, 'Y1': 1, 'Y2': 3},
+'8-4': {'X1': 4, 'X2': 5, 'Y1': 1, 'Y2': 3},
+'8-5': {'X1': 5, 'X2': 4, 'Y1': 0, 'Y2': 0},
+'8-6': {'X1': 6, 'X2': 3, 'Y1': 1, 'Y2': 3},
+'8-7': {'X1': 7, 'X2': 2, 'Y1': 8, 'Y2': 3},
+'8-8': {'X1': 8, 'X2': 1, 'Y1': 1, 'Y2': 3},
+'8-9': {'X1': 9, 'X2': 0, 'Y1': 3, 'Y2': 3},
+'9-0': {'X1': 0, 'X2': 4, 'Y1': 9, 'Y2': 2},
+'9-1': {'X1': 1, 'X2': 3, 'Y1': 2, 'Y2': 2},
+'9-2': {'X1': 2, 'X2': 2, 'Y1': 2, 'Y2': 2},
+'9-3': {'X1': 3, 'X2': 1, 'Y1': 2, 'Y2': 2},
+'9-4': {'X1': 4, 'X2': 0, 'Y1': 2, 'Y2': 2},
+'9-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'9-6': {'X1': 0, 'X2': 3, 'Y1': 2, 'Y2': 2},
+'9-7': {'X1': 1, 'X2': 2, 'Y1': 9, 'Y2': 2},
+'9-8': {'X1': 2, 'X2': 1, 'Y1': 2, 'Y2': 2},
+'9-9': {'X1': 3, 'X2': 0, 'Y1': 4, 'Y2': 2},
+'10-0': {'X1': 0, 'X2': 4, 'Y1': 10, 'Y2': 1},
+'10-1': {'X1': 1, 'X2': 3, 'Y1': 3, 'Y2': 1},
+'10-2': {'X1': 2, 'X2': 2, 'Y1': 3, 'Y2': 1},
+'10-3': {'X1': 3, 'X2': 1, 'Y1': 3, 'Y2': 1},
+'10-4': {'X1': 4, 'X2': 0, 'Y1': 3, 'Y2': 1},
+'10-5': {'X1': -1, 'X2': -1, 'Y1': -1, 'Y2': -1},
+'10-6': {'X1': 0, 'X2': 3, 'Y1': 3, 'Y2': 1},
+'10-7': {'X1': 1, 'X2': 2, 'Y1': 10, 'Y2': 1},
+'10-8': {'X1': 2, 'X2': 1, 'Y1': 3, 'Y2': 1},
+'10-9': {'X1': 3, 'X2': 0, 'Y1': 5, 'Y2': 1},
+'11-0': {'X1': 0, 'X2': 9, 'Y1': 11, 'Y2': 0},
+'11-1': {'X1': 1, 'X2': 8, 'Y1': 4, 'Y2': 0},
+'11-2': {'X1': 2, 'X2': 7, 'Y1': 4, 'Y2': 0},
+'11-3': {'X1': 3, 'X2': 6, 'Y1': 4, 'Y2': 0},
+'11-4': {'X1': 4, 'X2': 5, 'Y1': 4, 'Y2': 0},
+'11-5': {'X1': 5, 'X2': 4, 'Y1': 0, 'Y2': 0},
+'11-6': {'X1': 6, 'X2': 3, 'Y1': 4, 'Y2': 0},
+'11-7': {'X1': 7, 'X2': 2, 'Y1': 11, 'Y2': 0},
+'11-8': {'X1': 8, 'X2': 1, 'Y1': 4, 'Y2': 0},
+'11-9': {'X1': 9, 'X2': 0, 'Y1': 6, 'Y2': 0}}
 
 
 
@@ -107,33 +226,24 @@ class GridManager {
     
         let index = Array.from(this.gridItems).indexOf(this.selectedGridItem);
         let nextIndex = index + step * (this.direction === 'horizontal' ? 1 : 10);
+        let row = Math.floor(nextIndex / 10);
+        let col = nextIndex % 10;
     
-        // Check bounds for horizontal movement and ensure we don't wrap to the next row
-        if (this.direction === 'horizontal' && (Math.floor(nextIndex / 10) !== Math.floor(index / 10) || nextIndex < 0 || nextIndex >= this.gridItems.length)) {
-            return;
-        }
-    
-        // Check bounds for vertical movement
-        if (this.direction === 'vertical' && (nextIndex < 0 || nextIndex >= this.gridItems.length)) {
+        // Check bounds for horizontal and vertical movement
+        if ((this.direction === 'horizontal' && (col < 0 || col > 9)) ||
+            (this.direction === 'vertical' && (row < 0 || row > 11))) {
             return;
         }
     
         let nextItem = this.gridItems[nextIndex];
-    
-        // If the next item is a special one, skip it by calling moveGridItemFocus recursively
-        if (nextItem && nextItem.dataset.special === "true") {
-            // Adjust step to skip over the special item
-            this.moveGridItemFocus(step + (step > 0 ? 1 : -1));
-            return;
+        if (!nextItem || nextItem.dataset.special === "true") {
+            return; // If there is no next item or it's a special item, do nothing
         }
     
-        // If we have a valid next item that is not special, move the focus to it
-        if (nextItem) {
-            this.clearActiveAndSelected();
-            this.selectedGridItem = nextItem;
-            this.setActiveRowOrColumn(nextIndex);
-            nextItem.classList.add('selected', 'active');
-        }
+        this.clearActiveAndSelected();
+        this.selectedGridItem = nextItem;
+        this.setActiveRowOrColumn(nextIndex);
+        nextItem.classList.add('selected', 'active');
     }
 
     clearActiveAndSelected() {
@@ -144,15 +254,21 @@ class GridManager {
 
     setActiveRowOrColumn(index) {
         const { row, col } = this.getRowCol(index);
+        const vector = vectorData[`${row}-${col}`]; // Get the vector for the current grid item
 
-        if (this.direction === 'horizontal') {
-            for (let i = row * 10; i < (row + 1) * 10; i++) {
-                this.gridItems[i].classList.add('active');
-            }
-        } else {
-            for (let i = col; i < this.gridItems.length; i += 10) {
-                this.gridItems[i].classList.add('active');
-            }
+        this.clearActiveAndSelected();
+
+        if (this.selectedGridItem) {
+            this.selectedGridItem.classList.add('selected');
+        }
+
+        // Determine the start and end indices for the active selection based on the current direction
+        const startIndex = this.direction === 'horizontal' ? row * 10 + Math.max(0, col - vector.X1) : col + Math.max(0, row - vector.Y1) * 10;
+        const endIndex = this.direction === 'horizontal' ? row * 10 + Math.min(9, col + vector.X2) : col + Math.min(119, (row + vector.Y2) * 10);
+
+        // Highlight the word that the selected cell is part of
+        for (let i = startIndex; i <= endIndex; this.direction === 'horizontal' ? i++ : i += 10) {
+            this.gridItems[i].classList.add('active');
         }
     }
     updateGridItemContent(gridItem, content) {
@@ -171,15 +287,22 @@ class GridManager {
     }
 
     handleKeyDown(event) {
+        // Log to confirm that the event is being triggered
+        console.log('Key pressed:', event.key);
+    
         // Only proceed if a grid item is selected
         if (!this.selectedGridItem) return;
-
+    
         // Prevent input on special grid items
         if (this.selectedGridItem.dataset.special === "true") return;
-
+    
         if (/^[A-ZÖÄÅa-zöäå]$/.test(event.key)) {
             this.updateGridItemContent(this.selectedGridItem, event.key.toUpperCase());
-            this.moveGridItemFocus(1);  // Move to the next item
+            // Log before attempting to move focus
+            console.log('Moving focus to next item');
+            this.moveGridItemFocus(1); // Move to the next item
+            // Log after attempting to move focus
+            console.log('Focus move attempted');
             saveCrosswordState();
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
             this.updateGridItemContent(this.selectedGridItem, '');
@@ -187,6 +310,7 @@ class GridManager {
             saveCrosswordState();
         }
     }
+    
 
     getRowCol(index) {
         return {
