@@ -474,3 +474,20 @@ p{
 .selected {
     background-color: #6aa7cc; /* Darker blue for the selected item */
 }
+
+.send-reply {
+    /* Your styles for the button */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.send-reply:hover {
+    background-color: #45a049;
+}
