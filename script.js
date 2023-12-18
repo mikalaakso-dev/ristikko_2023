@@ -14,8 +14,10 @@
   ['A', 'I', 'T', 'A', 'A', 'M', 'I', '7S','E','T',],
 ];   
 
-   // Funktio tarkistaa, onko ristikko oikein ratkaistu
-   function checkCrossword() {
+function checkCrossword() {
+    let correctCount = 0;
+    let totalCount = 0;
+
     for (let row = 0; row < 12; row++) {
         for (let col = 0; col < 10; col++) {
             const gridItem = gridItems[row * 10 + col];
@@ -24,13 +26,21 @@
 
             console.log(`Row ${row}, Col ${col}, User: ${userAnswer}, Correct: ${correctAnswer}`);
 
-            if (correctAnswer !== null && userAnswer !== correctAnswer) {
-                alert('Ristikko ei ole vielä oikein. Yritä uudelleen.');
-                return;
+            if (correctAnswer !== null) {
+                totalCount++;
+                if (userAnswer === correctAnswer) {
+                    correctCount++;
+                }
             }
         }
     }
-    alert('Onnittelut! Ristikko on oikein ratkaistu.');
+
+    const accuracy = Math.round((correctCount / totalCount) * 100);
+    if (accuracy === 100) {
+        alert('Onnittelut! Ristikko on oikein ratkaistu.');
+    } else {
+        alert(`Ristikosta ${accuracy}% on oikein. Yritä uudelleen.`);
+    }
 }
 
 // Example: Add a button to initiate the check

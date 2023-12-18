@@ -50,7 +50,7 @@ body {
 .special-1{
     background-image: url('eka-kysymys.png');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 90%;
     background-position: center center;
     border-bottom: white;
     border-top: white;
@@ -98,7 +98,7 @@ body {
     background-image: url('viides-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: contain;
+    background-size: 80%;
     
     border-bottom: none;
     
@@ -227,7 +227,7 @@ body {
     background-image: url('15-kysymys.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: contain;
+    background-size: 90%;
     border-top: none;
     
     pointer-events: none;
