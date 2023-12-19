@@ -7,11 +7,16 @@ body {
     align-items: center;
     height: 100%;
     font-family: 'Dosis'; 
+    
+    
 }
 
 /* Create a canvas for all elements */
 .canvas {
     position: relative;
+   
+    
+    
 
 }
 
@@ -507,4 +512,9 @@ p{
 
 .download-button:hover {
     background-color: #e31e0a;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    
 }
