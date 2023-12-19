@@ -12,6 +12,7 @@ body {
 /* Create a canvas for all elements */
 .canvas {
     position: relative;
+
 }
 
 /* Add styles for the grid */
@@ -25,13 +26,7 @@ body {
 
     
 }
-@media screen and (max-width: 800px) {
-    .grid-container {
-        grid-template-columns: repeat(5, 4cm); /* Change the number of columns and their size */
-        grid-template-rows: repeat(8, 4cm); /* Change the number of rows and their size */
-        /* Other styles for smaller screens... */
-    }
-}
+
 
 .grid-item {
     width: 100%;
@@ -442,7 +437,7 @@ p{
 }
 
 .erase-crossword-button:hover {
-    background-color: #45a049;
+   background-color: #e31e0a;
 }
 
 
@@ -490,4 +485,26 @@ p{
 
 .send-reply:hover {
     background-color: #45a049;
+}
+
+.hide {
+    display: none !important;
+}
+
+
+.download-button {
+    /* Your styles for the button */
+    background-color: #1876b3;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.download-button:hover {
+    background-color: #e31e0a;
 }

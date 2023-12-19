@@ -468,6 +468,50 @@ function updateGridItemContent(gridItem, content) {
     // Update only the content span's text, preserving any static numbers
     contentSpan.textContent = content;
 }
+window.jsPDF = window.jspdf.jsPDF;
+
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    // Hide buttons
+    document.querySelector('.button-container').classList.add('hide');
+    
+    // Capture screenshot with html2canvas
+    html2canvas(document.body, {
+        scale: window.devicePixelRatio, // Capture at the device's pixel ratio
+        useCORS: true // For loading images from other domains
+    }).then(canvas => {
+        // Show buttons again after a delay
+        setTimeout(function() {
+            document.querySelector('.button-container').classList.remove('hide');
+        }, 3000);
+
+        // Create a new jsPDF instance
+        const pdf = new jsPDF('landscape', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        // Convert canvas to an image
+        const imgData = canvas.toDataURL('image/png');
+        
+        // Calculate the scaling factor to fit the image inside A4
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfAspectRatio = pdfWidth / pdfHeight;
+        let imgWidth = pdfWidth;
+        let imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        if (imgProps.width / imgProps.height > pdfAspectRatio) {
+            imgHeight = pdfHeight;
+            imgWidth = (imgProps.width * pdfHeight) / imgProps.height;
+        }
+
+        // Center the image
+        const x = (pdfWidth - imgWidth) / 2;
+        const y = (pdfHeight - imgHeight) / 2;
+
+        // Add image to pdf
+        pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+        pdf.save('crossword.pdf');
+    });
+});
+
 const eraseButton = document.getElementById('eraseCrosswordButton');
 
 // Add a click event listener to the erase button
