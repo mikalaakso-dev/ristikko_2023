@@ -533,7 +533,7 @@ document.querySelector('.tarkista-sana').addEventListener('click', function() {
 
     // Check if the entered word matches the correct word
     if (enteredWord.toUpperCase() === correctWord.toUpperCase()) {
-        alert('Onnittelut! Sana on oikein. Voit lähettää nyt oikean sanan "Lähetä vastaus" lomakkeella ja osallistua arvontaan');
+        alert('Onnittelut! Ratkaisusana on oikein.  "Lähetä vastaus" painikkeelle pääset lomakkeelle ja voit osallistua arvontaan');
     } else {
         alert('Sana ei ole vielä oikein. Yritä uudestaan');
     }
