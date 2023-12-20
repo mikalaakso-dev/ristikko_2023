@@ -468,7 +468,7 @@ function updateGridItemContent(gridItem, content) {
     // Update only the content span's text, preserving any static numbers
     contentSpan.textContent = content;
 }
-window.jsPDF = window.jspdf.jsPDF;
+/*window.jsPDF = window.jspdf.jsPDF;
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
     // Hide buttons
@@ -510,7 +510,7 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
         pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
         pdf.save('crossword.pdf');
     });
-});
+});*/
 
 const eraseButton = document.getElementById('eraseCrosswordButton');
 

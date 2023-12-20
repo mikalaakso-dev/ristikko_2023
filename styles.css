@@ -516,44 +516,86 @@ p{
 
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
+    
     body {
-        display: block; /* Change flex layout to block layout for better control */
-        overflow-x: hidden; /* Hide horizontal overflow */
-        min-width: 0; 
+        overflow-x: hidden; /* Prevent body from scrolling */
+        box-sizing: border-box;
     }
 
     .canvas {
-        position: relative; /* Adjust as needed */
-        overflow-x: auto; /* Allow horizontal scrolling */
-        
-        width: 100vw; /* Set width to viewport width */
+        width: initial; /* Reset any width constraints */
+        min-width: 100%; /* Ensure canvas is at least the width of the viewport */
+        overflow-x: auto; /* Enable horizontal scrolling for the canvas */
+        max-width: 100%;
+        max-height: 1000%;
+        z-index: 1;
     }
 
     .grid-container {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr); /* Use relative units for grid items */
-        grid-gap: 2px; /* Adjust gap if necessary */
-        justify-content: center;
-        margin-top: 50px; /* Reduce margin-top for mobile */
-        width: 100vw; /* Set width to viewport width */
-        overflow-x: auto; /* Ensure grid is scrollable horizontally */
+        width: max-content; /* Allow grid to be as wide as it needs to be */
+        
+        max-width: none;
+        overflow-x: visible;
+        
+    }
+   
+
+    .png-image {
+        width: 200px; /* Adjust width as necessary */
+        height: 770px; /* Adjust height to maintain aspect ratio */
+        
+        position: absolute;
+       left: 0;
+       
+        
+     
+        z-index: 1; /* Ensure it's above other elements */
     }
 
-    .grid-item {
-        font-size: 3vw; /* Adjust font size to be responsive */
+   
+
+    /* Add any additional styles needed for smaller screens */
+}
+
+/* Media query for mobile devices */
+@media screen and (max-height: 768px) {
+    
+    body {
+        overflow-x: hidden; /* Prevent body from scrolling */
+        box-sizing: border-box;
     }
 
-    .png-image, .top-image-container, .banner-container, .top-png-image, .banner-image {
-        /* Adjust or remove absolute positioning and set max-width to 100% */
-        position: static;
+    .canvas {
+        width: initial; /* Reset any width constraints */
+        min-width: 100%; /* Ensure canvas is at least the width of the viewport */
+        overflow-x: auto; /* Enable horizontal scrolling for the canvas */
         max-width: 100%;
-        height: auto;
+        max-height: 1000%;
+        z-index: 1;
     }
 
-    .banner-container {
-        margin-left: 0; /* Adjust banner container margin */
-        width: auto; /* Set banner width to adjust automatically */
+    .grid-container {
+        width: max-content; /* Allow grid to be as wide as it needs to be */
+        
+        max-width: none;
+        overflow-x: visible;
+        
     }
+   
+
+    .png-image {
+        width: 200px; /* Adjust width as necessary */
+        height: 770px; /* Adjust height to maintain aspect ratio */
+        
+        position: absolute;
+       left: -100;
+       
+        
+     
+        z-index: 1; /* Ensure it's above other elements */
+    }
+
+   
 
     /* Add any additional styles needed for smaller screens */
 }
