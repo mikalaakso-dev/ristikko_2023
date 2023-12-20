@@ -512,6 +512,41 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
     });
 });*/
 
+document.querySelector('.tarkista-sana').addEventListener('click', function() {
+    // Define the correct word
+    var correctWord = 'MITTAUS';
+
+    // Select all elements with the class 'grid-item' that contain 'static-number'
+    var gridItemsWithNumbers = document.querySelectorAll('.grid-item .static-number');
+
+    // Extract letters, concatenate them
+    var enteredWord = '';
+    gridItemsWithNumbers.forEach(function(staticNumberElement) {
+        // Get the parent grid item of the static number
+        var gridItem = staticNumberElement.closest('.grid-item');
+        
+        // Extract the text content excluding the static number text
+        var gridItemText = gridItem.textContent.replace(staticNumberElement.textContent, '').trim();
+        
+        enteredWord += gridItemText;
+    });
+
+    // Check if the entered word matches the correct word
+    if (enteredWord.toUpperCase() === correctWord.toUpperCase()) {
+        alert('Onnittelut! Sana on oikein. Voit lähettää nyt oikean sanan "Lähetä vastaus" lomakkeella ja osallista arvontaan');
+    } else {
+        alert('Sana ei ole vielä oikein. Yritä uudestaan');
+    }
+});
+
+function redirectToForm() {
+    window.location.href = 'https://forms.zohopublic.com/site24x71410154495309/form/Ristikko2023/formperma/MsOH3z-7RuyTGxo3MqDxyfRJJNmPGYr3NfV1Ojj2-Sg';
+}
+
+
+
+
+
 const eraseButton = document.getElementById('eraseCrosswordButton');
 
 // Add a click event listener to the erase button

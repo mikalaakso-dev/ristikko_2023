@@ -497,7 +497,7 @@ p{
 }
 
 
-.download-button {
+.tarkista-sana {
     /* Your styles for the button */
     background-color: #1876b3;
     color: white;
@@ -510,7 +510,7 @@ p{
     margin-top: 10px;
 }
 
-.download-button:hover {
+.tarkista-sana:hover {
     background-color: #e31e0a;
 }
 
