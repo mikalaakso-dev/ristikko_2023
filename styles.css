@@ -516,5 +516,44 @@ p{
 
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
-    
+    body {
+        display: block; /* Change flex layout to block layout for better control */
+        overflow-x: hidden; /* Hide horizontal overflow */
+        min-width: 0; 
+    }
+
+    .canvas {
+        position: relative; /* Adjust as needed */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        
+        width: 100vw; /* Set width to viewport width */
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr); /* Use relative units for grid items */
+        grid-gap: 2px; /* Adjust gap if necessary */
+        justify-content: center;
+        margin-top: 50px; /* Reduce margin-top for mobile */
+        width: 100vw; /* Set width to viewport width */
+        overflow-x: auto; /* Ensure grid is scrollable horizontally */
+    }
+
+    .grid-item {
+        font-size: 3vw; /* Adjust font size to be responsive */
+    }
+
+    .png-image, .top-image-container, .banner-container, .top-png-image, .banner-image {
+        /* Adjust or remove absolute positioning and set max-width to 100% */
+        position: static;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .banner-container {
+        margin-left: 0; /* Adjust banner container margin */
+        width: auto; /* Set banner width to adjust automatically */
+    }
+
+    /* Add any additional styles needed for smaller screens */
 }
