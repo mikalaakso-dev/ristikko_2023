@@ -1,4 +1,3 @@
-
  const correctAnswers = [
             ['A', 'T', 'A', 'R', 'I', null, 'K', 'A', 'R', 'A'],
             ['1M', 'A', 'R', 'I', 'N', null, 'R', 'A','U','K',],
@@ -47,6 +46,18 @@ function checkCrossword() {
 checkButton.textContent = 'Tarkista ristikko';
 checkButton.addEventListener('click', checkCrossword);
 checkButton.classList.add('check-button');
+
+function createHiddenInput() {
+    const hiddenInput = document.createElement('input');
+    hiddenInput.classList.add('hidden-input');
+    hiddenInput.setAttribute('type', 'text');
+    hiddenInput.style.position = 'absolute';
+    hiddenInput.style.opacity = 0;
+    hiddenInput.style.height = '1px';
+    hiddenInput.style.width = '1px';
+    document.body.appendChild(hiddenInput);
+    return hiddenInput;
+}
         
 
     // Load the game state from localStorage when the page loads
@@ -215,7 +226,9 @@ class GridManager {
             gridItem.addEventListener('click', () => this.handleItemClick(gridItem, index));
         });
         document.addEventListener('keydown', (event) => this.handleKeyDown(event));
+        hiddenInput.addEventListener('input', (event) => this.handleInput(event)); // Listen for input changes
     }
+    
 
     
 
@@ -230,6 +243,22 @@ class GridManager {
         this.clearActiveAndSelected();
         this.setActiveRowOrColumn(index);
         gridItem.classList.add('selected');
+        
+        
+        hiddenInput.focus(); 
+    
+        // Calculate the position of the grid item and adjust scrolling if necessary
+       // Adjust scrolling for bottom rows
+       const rect = gridItem.getBoundingClientRect();
+       const bottomThreshold = window.innerHeight * 0.6; // Further adjust this value
+       const isVisible = (rect.top >= 0) && (rect.bottom <= window.innerHeight);
+   
+       if (!isVisible || rect.bottom > bottomThreshold) {
+           window.scrollTo({
+               top: window.scrollY + rect.top - window.innerHeight / 2, // Adjust this ratio for better visibility
+               behavior: 'smooth'
+           });
+       }
     }
     moveGridItemFocus(step) {
         if (!this.selectedGridItem) return;
@@ -297,9 +326,6 @@ class GridManager {
     }
 
     handleKeyDown(event) {
-        // Log to confirm that the event is being triggered
-        console.log('Key pressed:', event.key);
-    
         // Only proceed if a grid item is selected
         if (!this.selectedGridItem) return;
     
@@ -308,15 +334,23 @@ class GridManager {
     
         if (/^[A-ZÖÄÅa-zöäå]$/.test(event.key)) {
             this.updateGridItemContent(this.selectedGridItem, event.key.toUpperCase());
-            // Log before attempting to move focus
-            console.log('Moving focus to next item');
-            this.moveGridItemFocus(1); // Move to the next item
-            // Log after attempting to move focus
-            console.log('Focus move attempted');
+            // No immediate focus move here
             saveCrosswordState();
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
             this.updateGridItemContent(this.selectedGridItem, '');
             this.moveGridItemFocus(-1); // Move to the previous item
+            saveCrosswordState();
+        }
+    }
+    handleInput(event) {
+        const inputChar = event.target.value;
+        event.target.value = ''; // Clear the hidden input
+
+        if (!this.selectedGridItem) return;
+
+        if (/^[A-ZÖÄÅa-zöäå]$/.test(inputChar)) {
+            this.updateGridItemContent(this.selectedGridItem, inputChar.toUpperCase());
+            this.moveGridItemFocus(1);
             saveCrosswordState();
         }
     }
@@ -328,10 +362,12 @@ class GridManager {
             col: index % 10
         };
     }
+    
 }
 
 // Usage
 document.addEventListener('DOMContentLoaded', () => {
+    hiddenInput = createHiddenInput();
     const gridItems = document.querySelectorAll('.grid-item');
     new GridManager(gridItems);
 });
@@ -565,6 +601,8 @@ function eraseCrossword() {
     // Save the crossword state after erasing
     saveCrosswordState();
 }
+
+
 
 // Call the loadCrosswordState function to load the crossword state on page load
 loadCrosswordState();
