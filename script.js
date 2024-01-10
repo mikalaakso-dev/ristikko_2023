@@ -569,7 +569,7 @@ document.querySelector('.tarkista-sana').addEventListener('click', function() {
 
     // Check if the entered word matches the correct word
     if (enteredWord.toUpperCase() === correctWord.toUpperCase()) {
-        alert('Onnittelut! Ratkaisusana on oikein.  "Lähetä vastaus" painikkeelle pääset lomakkeelle ja voit osallistua arvontaan');
+        alert('Onnittelut! Ratkaisusana on oikein.');
     } else {
         alert('Sana ei ole vielä oikein. Yritä uudestaan');
     }
