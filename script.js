@@ -575,9 +575,9 @@ document.querySelector('.tarkista-sana').addEventListener('click', function() {
     }
 });
 
-function redirectToForm() {
-    window.location.href = 'https://forms.zohopublic.com/site24x71410154495309/form/Ristikko2023/formperma/MsOH3z-7RuyTGxo3MqDxyfRJJNmPGYr3NfV1Ojj2-Sg';
-}
+//function redirectToForm() {
+  //  window.location.href = 'https://forms.zohopublic.com/site24x71410154495309/form/Ristikko2023/formperma/MsOH3z-7RuyTGxo3MqDxyfRJJNmPGYr3NfV1Ojj2-Sg';
+//}
 
 
 
